@@ -18,7 +18,7 @@
 function X2JS(config) {
 	'use strict';
 		
-	var VERSION = "1.2.7";
+	var VERSION = "1.2.0";
 	
 	config = config || {};
 	initConfigDefaults();
