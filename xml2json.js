@@ -18,7 +18,7 @@
 function X2JS(config) {
 	'use strict';
 		
-	var VERSION = "1.1.7";
+	var VERSION = "1.2.7";
 	
 	config = config || {};
 	initConfigDefaults();
@@ -28,6 +28,7 @@ function X2JS(config) {
 		if(config.escapeMode === undefined) {
 			config.escapeMode = true;
 		}
+		config.attributeArray = config.attributeArray || false;
 		config.attributePrefix = config.attributePrefix || "_";
 		config.arrayAccessForm = config.arrayAccessForm || "none";
 		config.emptyNodeForm = config.emptyNodeForm || "text";
@@ -251,12 +252,19 @@ function X2JS(config) {
 					}
 				}								
 			}
-			
+			if(config.attributeArray) {
+				result[attributeArray] = [];
+			}
 			// Attributes
 			for(var aidx=0; aidx <node.attributes.length; aidx++) {
 				var attr = node.attributes.item(aidx); // [aidx];
 				result.__cnt++;
-				result[config.attributePrefix+attr.name]=attr.value;
+				if(config.attributeArray) {
+					result[config.attributePrefix+attr.name]=attr.value;
+				}
+				else {
+					result[attributeArray][attr.name]=attr.value;
+				}
 			}
 			
 			// Node namespace prefix
